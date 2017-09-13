@@ -13,6 +13,8 @@
   (export "getSize" (func $getSize))
   (export "add" (func $add))
   (export "pop" (func $pop))
+  (export "peek" (func $peek))
+  (export "deleteTop" (func $deleteTop))
 
   ;; Returns size of heap
   (func $getSize (result i32)
@@ -98,9 +100,7 @@
     (set_global $size (i32.add (get_global $size)(i32.const 1)))
   )
 
-  (func $pop (result i32)
-    (local $result i32)
-    (set_local $result (i32.load (i32.const 0)))
+  (func $deleteTop
     (set_global $size (i32.sub (get_global $size)(i32.const 1)))
     (if (i32.gt_s (get_global $size) (i32.const 0))
       (then
@@ -108,6 +108,16 @@
         (call $_siftDown (i32.const 0))
       )
     )
+  )
+
+  (func $pop (result i32)
+    (local $result i32)
+    (set_local $result (i32.load (i32.const 0)))
+    (call $deleteTop)
     (get_local $result)
+  )
+
+  (func $peek (result i32)
+    (i32.load (i32.const 0))
   )
 )

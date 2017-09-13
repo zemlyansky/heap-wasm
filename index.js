@@ -18,6 +18,13 @@ function Heap (comp) {
   var mem = new Uint32Array(heapWasm.exports.mem.buffer)
   this.add = heapWasm.exports.add
   this.getSize = heapWasm.exports.getSize
+  this.peek = function () {
+    if (this.getSize()) {
+      return heapWasm.exports.peek()
+    } else {
+      return undefined
+    }
+  }
   this.pop = function () {
     if (this.getSize()) {
       return heapWasm.exports.pop()
