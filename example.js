@@ -11,3 +11,8 @@ h1.add(8)
 
 console.log(h1.pop())
 console.log(h1.getMem())
+
+var h2 = new Heap()
+
+h2.heapify([1,3,62,8,2,99])
+console.log(h2.getMem())

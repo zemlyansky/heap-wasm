@@ -77,3 +77,18 @@ values.forEach(pair => {
     t.deepEqual(h.getMem(), pair[1])
   })
 })
+
+// Heapify
+values = [
+  [[10], [10]],
+  [[12, 5, 7, 1, 78, 24, 3, 6], [78, 12, 24, 6, 5, 7, 3, 1]],
+  [[9, 15, 13, 17, 12, 8, 5, 100, 19, 6, 11, 36, 25, 1, 4], [100, 19, 36, 17, 12, 25, 5, 9, 15, 6, 11, 8, 13, 1, 4]]
+]
+values.forEach(pair => {
+  var h = new Heap()
+  h.heapify(pair[0])
+  test('Heapify: [' + pair[0].toString() + '] -> ' + pair[1].toString(), t => {
+    t.deepEqual(h.getMem(), pair[1])
+  })
+})
+

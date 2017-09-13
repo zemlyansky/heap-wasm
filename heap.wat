@@ -10,16 +10,24 @@
   (global $size (mut i32) (i32.const 0))
 
   ;; Export functions
+  (export "setSize" (func $setSize))
   (export "getSize" (func $getSize))
   (export "add" (func $add))
   (export "pop" (func $pop))
   (export "peek" (func $peek))
   (export "deleteTop" (func $deleteTop))
+  (export "heapify" (func $heapify))
 
   ;; Returns size of heap
   (func $getSize (result i32)
     (get_global $size)
   )
+
+  ;; Sets size of heap
+  (func $setSize (param $s i32)
+    (set_global $size (get_local $s))
+  )
+  
   ;; Finds a parent node
   (func $_parent (param $i i32) (result i32)
     (i32.shr_s (i32.sub (get_local $i)(i32.const 1))(i32.const 1))
@@ -119,5 +127,19 @@
 
   (func $peek (result i32)
     (i32.load (i32.const 0))
+  )
+
+  (func $heapify
+    (local $i i32)
+    (set_local $i (i32.sub (i32.shr_u (get_global $size)(i32.const 1))(i32.const 1)))
+    (if (i32.ge_s (get_local $i)(i32.const 0))
+      (then
+        (loop $siftEach
+          (call $_siftDown (get_local $i))
+          (set_local $i (i32.sub (get_local $i)(i32.const 1)))
+          (br_if $siftEach (i32.ge_s (get_local $i)(i32.const 0)))
+        )
+      )
+    )
   )
 )

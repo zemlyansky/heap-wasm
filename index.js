@@ -4,7 +4,7 @@ var defaultComp = function (a, b) {
   return a < b
 }
 
-function Heap (comp) {
+function Heap (comp, arr) {
   if (!(this instanceof Heap)) return new Heap(comp)
   var compare = comp || defaultComp
   var heapWasm = heapWasmInit({
@@ -16,8 +16,15 @@ function Heap (comp) {
     }
   })
   var mem = new Uint32Array(heapWasm.exports.mem.buffer)
-  this.add = heapWasm.exports.add
   this.getSize = heapWasm.exports.getSize
+  this.setSize = heapWasm.exports.setSize
+  if (arr && arr.length) {
+    // arr.forEach((v, i) => { mem[i] = v })
+    mem.set(arr, 0)
+    this.setSize(arr.length)
+    heapWasm.exports.heapify()
+  }
+  this.add = heapWasm.exports.add
   this.peek = function () {
     if (this.getSize()) {
       return heapWasm.exports.peek()
@@ -34,6 +41,12 @@ function Heap (comp) {
   }
   this.getMem = function () {
     return Array.from(mem.slice(0, this.getSize()))
+  }
+  this.heapify = function (arr) {
+    //arr.forEach((v, i) => { mem[i] = v })
+    mem.set(arr, this.getSize())
+    this.setSize(this.getSize() + arr.length)
+    heapWasm.exports.heapify()
   }
 }
 
