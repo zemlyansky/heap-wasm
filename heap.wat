@@ -52,7 +52,6 @@
     (set_local $r (i32.add (i32.shl (get_local $i)(i32.const 1))(i32.const 2)))
     ;; Finding extremum (bigger or smaller)
     (set_local $ext (get_local $i))
-    (call $log (get_local $ext))
     (if 
       (i32.and 
         (i32.lt_s (get_local $l)(get_global $size))
@@ -65,7 +64,6 @@
         (set_local $ext (get_local $l))
       )
     )
-    (call $log (get_local $ext))
     (if 
       (i32.and
         (i32.lt_s (get_local $r)(get_global $size))
@@ -78,7 +76,6 @@
         (set_local $ext (get_local $r))
       )
     )
-    (call $log (get_local $ext))
     (if (i32.ne (get_local $i)(get_local $ext))
       (then
         (set_local $temp (i32.load (i32.mul (get_local $i)(i32.const 4))))
