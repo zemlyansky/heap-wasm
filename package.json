@@ -1,0 +1,17 @@
+{
+  "name": "heap-wasm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "wast2js heap.wat -o heap.wasm.js",
+    "test": "ava test.js --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "wast2js": "^1.1.0"
+  }
+}
