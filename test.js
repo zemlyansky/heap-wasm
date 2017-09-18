@@ -92,3 +92,13 @@ values.forEach(pair => {
   })
 })
 
+// Large heaps
+test('Large heaps: 1,000,000 pushes', t => {
+  var h = new Heap()
+  for (var i = 0; i < 1000000; i++) {
+    h.add(Math.round(Math.random() * 10000))
+  }
+  t.is(h.getSize(), 1000000)
+  h.pop()
+  t.is(h.getSize(), 999999)
+})
