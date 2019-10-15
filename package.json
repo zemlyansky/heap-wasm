@@ -1,7 +1,7 @@
 {
   "name": "heap-wasm",
   "version": "1.0.0",
-  "description": "",
+  "description": "Heap data structure implemented with Web assembly",
   "main": "index.js",
   "scripts": {
     "build": "wast2js heap.wat -o heap.wasm.js",
