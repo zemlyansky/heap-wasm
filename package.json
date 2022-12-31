@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.22.0",
+    "ava": "^5.1.0",
     "wast2js": "^1.1.0"
   }
 }
